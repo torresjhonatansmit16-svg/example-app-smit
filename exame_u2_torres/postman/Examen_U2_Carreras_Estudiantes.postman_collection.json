@@ -1,0 +1,229 @@
+{
+  "info": {
+    "name": "Examen U2 - API Carreras y Estudiantes",
+    "description": "Pruebas para la API REST de carreras y estudiantes. Enviar Accept: application/json.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000"
+    },
+    {
+      "key": "carrera_id",
+      "value": "1"
+    },
+    {
+      "key": "estudiante_id",
+      "value": "1"
+    }
+  ],
+  "item": [
+    {
+      "name": "Carreras",
+      "item": [
+        {
+          "name": "Listar carreras (200)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/carreras"
+          }
+        },
+        {
+          "name": "Ver carrera (200)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/carreras/{{carrera_id}}"
+          }
+        },
+        {
+          "name": "Crear carrera (201)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Ingeniería Ambiental\",\n  \"codigo\": \"IA006\",\n  \"facultad\": \"Ingeniería y Arquitectura\",\n  \"duracion_semestres\": 10\n}"
+            },
+            "url": "{{base_url}}/api/carreras"
+          }
+        },
+        {
+          "name": "Actualizar carrera (200)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"facultad\": \"Facultad actualizada\"\n}"
+            },
+            "url": "{{base_url}}/api/carreras/{{carrera_id}}"
+          }
+        },
+        {
+          "name": "Eliminar carrera con estudiantes (409)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/carreras/1"
+          }
+        },
+        {
+          "name": "Carrera con estudiantes (200)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/carreras/{{carrera_id}}/estudiantes"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Estudiantes",
+      "item": [
+        {
+          "name": "Listar estudiantes con carrera (200)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/estudiantes"
+          }
+        },
+        {
+          "name": "Ver estudiante (200)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/estudiantes/{{estudiante_id}}"
+          }
+        },
+        {
+          "name": "Crear estudiante (201)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"carrera_id\": 1,\n  \"codigo\": \"EST016\",\n  \"nombres\": \"Estudiante de Prueba\",\n  \"apellidos\": \"Apellido de Prueba\",\n  \"email\": \"estudiante16@example.com\",\n  \"fecha_nacimiento\": \"2004-04-10\"\n}"
+            },
+            "url": "{{base_url}}/api/estudiantes"
+          }
+        },
+        {
+          "name": "Error de validación (422)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"carrera_id\": 9999,\n  \"codigo\": \"\",\n  \"nombres\": \"\",\n  \"apellidos\": \"\",\n  \"email\": \"correo-no-valido\",\n  \"fecha_nacimiento\": \"fecha\"\n}"
+            },
+            "url": "{{base_url}}/api/estudiantes"
+          }
+        },
+        {
+          "name": "Actualizar estudiante (200)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombres\": \"Nombre Actualizado\"\n}"
+            },
+            "url": "{{base_url}}/api/estudiantes/{{estudiante_id}}"
+          }
+        },
+        {
+          "name": "Eliminar estudiante (204)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/estudiantes/{{estudiante_id}}"
+          }
+        }
+      ]
+    }
+  ]
+}
